@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div style="text-align:center; background:#fff; padding:15px 0;">
+    <img src="{{ url_for('static', filename='logo.png') }}" 
+         alt="College Logo" 
+         style="width:100%; max-height:250px; object-fit:contain;">
+</div>
+
+    <nav class="navbar">
+        <a href="{{ url_for('public') }}"><i class="fa fa-home"></i> Public</a>
+        {% if session.get('user') %}
+            <a href="{{ url_for('private') }}"><i class="fa fa-lock"></i> Private</a>
+            <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out-alt"></i> Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}"><i class="fa fa-sign-in-alt"></i> Login</a>
+        {% endif %}
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <h2>🔑 Student Login</h2>
+            <form method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <!-- Removed Register link -->
+            <p><a class="btn-link" href="{{ url_for('public') }}">⬅ Back to Public</a></p>
+        </div>
+    </div>
+</body>
+</html>

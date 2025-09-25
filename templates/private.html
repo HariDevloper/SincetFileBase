@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SINCET File Base</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: #121212;
+            color: #eee;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: flex-end;
+            padding: 15px 30px;
+            background-color: #1f1f1f;
+        }
+        .navbar a {
+            color: #eee;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            color: #00bcd4;
+        }
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        input, button {
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: none;
+        }
+        input {
+            width: calc(100% - 22px);
+        }
+        button {
+            background-color: #00bcd4;
+            color: #121212;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #0097a7;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #333;
+            text-align: left;
+        }
+        table th {
+            background-color: #1f1f1f;
+        }
+        tr:hover {
+            background-color: #222;
+        }
+        .lock { color: #f44336; }
+        .open { color: #4caf50; }
+        .search-box {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        .search-box input {
+            width: 250px;
+            background-color: #1f1f1f;
+            color: #eee;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align:center; background:#fff; padding:15px 0;">
+    <img src="{{ url_for('static', filename='logo.png') }}" 
+         alt="College Logo" 
+         style="width:100%; max-height:250px; object-fit:contain;">
+</div>
+
+    <nav class="navbar">
+        <a href="{{ url_for('public') }}"><i class="fa fa-home"></i> Public</a>
+        <a href="{{ url_for('private') }}"><i class="fa fa-lock"></i> Private</a>
+        <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out-alt"></i> Logout</a>
+    </nav>
+
+    <div class="container">
+        <h1>📂 {{ user }}'s Private Files</h1>
+
+        <div class="card">
+            <h2>Upload File</h2>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" required>
+                <input type="password" name="password" placeholder="Set password (optional)">
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Your Files</h2>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search files..." onkeyup="searchFiles()">
+            </div>
+
+            <table id="filesTable">
+                <thead>
+                    <tr>
+                        <th>Filename</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+<tbody>
+{% for fn, meta in file_meta.items() %}
+    {% if meta['type'] == 'private' and meta['uploader'] == user %}
+    <tr>
+        <td>{{ meta['filename'] }}</td>
+        <td>
+            {% if meta['protected'] %}
+                <span class="lock">🔒 Protected</span>
+            {% else %}
+                <span class="open">🔓 Open</span>
+            {% endif %}
+        </td>
+        <td><a href="{{ url_for('download', filename=meta['filename']) }}">Download</a></td>
+    </tr>
+    {% endif %}
+{% endfor %}
+</tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function searchFiles() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let rows = document.querySelectorAll("#filesTable tbody tr");
+            rows.forEach(row => {
+                let filename = row.cells[0].textContent.toLowerCase();
+                row.style.display = filename.includes(input) ? "" : "none";
+            });
+        }
+    </script>
+</body>
+</html>

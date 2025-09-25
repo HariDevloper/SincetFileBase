@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download {{ filename }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('public') }}"><i class="fa fa-home"></i> Public</a>
+        {% if session.get('user') %}
+            <a href="{{ url_for('private') }}"><i class="fa fa-lock"></i> Private</a>
+            <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out-alt"></i> Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}"><i class="fa fa-sign-in-alt"></i> Login</a>
+        {% endif %}
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <h2>Download File: {{ filename }}</h2>
+
+            
+    {% if meta.protected %}
+        <form method="POST">
+            <input type="password" name="password" placeholder="Enter password" required>
+            <button type="submit">Download</button>
+        </form>
+        <p class="info">🔒 This file is protected</p>
+    {% else %}
+        <form method="POST">
+            <button type="submit">Download</button>
+        </form>
+        <p class="info">🔓 Open file</p>
+    {% endif %}
+
+
+             <p><a class="btn-link" href="{{ back_url }}">⬅ Back</a></p>
+
+            
+        </div>
+    </div>
+</body>
+</html>

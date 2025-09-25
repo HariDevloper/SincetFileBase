@@ -1,0 +1,146 @@
+/* ---------- GLOBAL ---------- */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    gap: 20px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.navbar a {
+    color: #e0e0e0;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #ffcc00;
+}
+
+/* ---------- MAIN CONTAINER ---------- */
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 100px 20px 40px 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ---------- HEADINGS ---------- */
+h1 {
+    font-weight: 700;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+/* ---------- FORM ELEMENTS ---------- */
+input, button {
+    font-family: inherit;
+    font-size: 16px;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background: #1e1e1e;
+    color: #e0e0e0;
+    outline: none;
+}
+
+input:focus {
+    border-color: #ffcc00;
+}
+
+button {
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    background: #ffcc00;
+    color: #121212;
+    border: none;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #e6b800;
+}
+
+/* ---------- FILES TABLE ---------- */
+.files-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.files-table th, .files-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.files-table th {
+    background: #1f1f1f;
+    color: #ffcc00;
+}
+
+.files-table tr:hover {
+    background: #2a2a2a;
+}
+
+/* ---------- STATUS ICONS ---------- */
+.lock {
+    color: #ff5555;
+    font-weight: bold;
+}
+
+.open {
+    color: #55ff55;
+    font-weight: bold;
+}
+
+/* ---------- LINKS / BUTTONS ---------- */
+a, .btn-link {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+a:hover, .btn-link:hover {
+    color: #e6b800;
+    text-decoration: underline;
+}
+
+/* ---------- FLASH MESSAGES ---------- */
+.flash {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 14px;
+}
+.flash.success { background: #2a2a2a; color: #55ff55; }
+.flash.danger { background: #2a2a2a; color: #ff5555; }
