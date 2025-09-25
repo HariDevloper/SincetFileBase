@@ -28,11 +28,11 @@ if os.path.exists(META_FILE):
 else:
     file_meta = {}
 
-# Google Sheets Setup
-scope = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("service_account.json", scope)
+key_dict = json.loads(os.environ.get("GOOGLE_CREDENTIALS"))
+creds = ServiceAccountCredentials.from_json_keyfile_dict(key_dict, scope)
 client = gspread.authorize(creds)
 sheet = client.open("students_login").sheet1
+
 
 # --- helper functions ----------------
 def meta_key(type_, user, filename):
@@ -244,3 +244,4 @@ def logout():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
