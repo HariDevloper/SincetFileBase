@@ -28,7 +28,14 @@ if os.path.exists(META_FILE):
 else:
     file_meta = {}
 
+# Define the Google Sheets API scope
+scope = ["https://spreadsheets.google.com/feeds",
+         "https://www.googleapis.com/auth/drive"]
+
+# Load JSON key from environment variable
 key_dict = json.loads(os.environ.get("GOOGLE_CREDENTIALS"))
+
+# Authorize and connect to the sheet
 creds = ServiceAccountCredentials.from_json_keyfile_dict(key_dict, scope)
 client = gspread.authorize(creds)
 sheet = client.open("students_login").sheet1
@@ -244,4 +251,5 @@ def logout():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
